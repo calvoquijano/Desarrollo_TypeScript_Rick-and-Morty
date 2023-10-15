@@ -8,30 +8,23 @@ export type Personaje = {
   fav?: boolean;
 };
 
-
-
 export type CharacterState = {
   personajes: Personaje[];
   isLoading: boolean;
   error: string | null;
-  page: number;
 };
 
 const initialState: CharacterState = {
   personajes: [],
   isLoading: true,
   error: null,
-  page: 1,
 };
 
-export const page:number = 1
 export const characterSlice = createSlice({
   name: "personaje",
   initialState,
   reducers: {
-    NEXT_PAGE: (state) => {
-      state.page += 1;
-    }
+    
   },
   extraReducers: (builder) => {
     builder.addCase(GET_PERSONAJES.pending, (state) => {
@@ -52,5 +45,4 @@ export const characterSlice = createSlice({
 });
 
 const characterReducer = characterSlice.reducer;
-export const { NEXT_PAGE } = characterSlice.actions;
 export default characterReducer;
