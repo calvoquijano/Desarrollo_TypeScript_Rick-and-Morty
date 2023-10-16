@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../store";
-import { useEffect } from "react";
 import "./grilla-personajes.css";
-import { GET_PERSONAJES } from "../../store/character/thunk";
 import TarjetaPersonaje from './tarjeta-personaje.componente';
+import { useEffect } from "react";
+import { GET_PERSONAJES } from "../../store/character/thunk";
 
 
 // /**
@@ -14,19 +14,17 @@ import TarjetaPersonaje from './tarjeta-personaje.componente';
 //  * @returns un JSX element
 //  */
 function GrillaPersonajes() {
-  const { personajes, isLoading, error } = useAppSelector((state) => state.character);
-
+  const { url, personajes, isLoading, error } = useAppSelector((state) => state.character);
   const dispatch = useAppDispatch();
-
   useEffect(() => {
-    dispatch(GET_PERSONAJES());
+    dispatch(GET_PERSONAJES(url));
   }, []);
   return (
     <div className="grilla-personajes">
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        personajes.map((personaje) => (
+        personajes?.map((personaje) => (
           <TarjetaPersonaje personaje={personaje} key={personaje.id} />
         ))
       )}

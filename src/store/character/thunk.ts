@@ -1,10 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Personaje } from "./slice";
+import { CharacterState } from "./slice";
 export const GET_PERSONAJES = createAsyncThunk(
   "personaje/GET_PERSONAJES",
-  async (): Promise<Personaje[]> => {
-    const res = await fetch("https://rickandmortyapi.com/api/character/?page=1");
-    const data = await res.json();
-    return data.results;
+  async (url: string): Promise<CharacterState> => {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const paginar = {
+        url: url,
+        personajes: data.results,
+        next: data.info.next,
+        prev: data.info.prev,
+      };
+      return paginar;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
   }
 );

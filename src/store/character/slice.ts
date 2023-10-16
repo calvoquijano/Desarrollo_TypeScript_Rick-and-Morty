@@ -9,31 +9,37 @@ export type Personaje = {
 };
 
 export type CharacterState = {
+  url: string;
   personajes: Personaje[];
-  isLoading: boolean;
-  error: string | null;
+  isLoading?: boolean;
+  error?: string | null;
+  next: string;
+  prev: string;
 };
 
 const initialState: CharacterState = {
+  url: 'https://rickandmortyapi.com/api/character/',
   personajes: [],
   isLoading: true,
   error: null,
+  next: '',
+  prev: '',
 };
 
 export const characterSlice = createSlice({
   name: "personaje",
   initialState,
-  reducers: {
-    
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(GET_PERSONAJES.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
       GET_PERSONAJES.fulfilled,
-      (state, action: PayloadAction<Personaje[]>) => {
-        state.personajes = action.payload;
+      (state, action: PayloadAction<CharacterState>) => {
+        state.personajes = action.payload.personajes;
+        state.next = action.payload.next;
+        state.prev = action.payload.prev;
         state.isLoading = false;
       },
     );
