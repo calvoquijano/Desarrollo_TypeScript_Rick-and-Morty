@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import characterReducer from "./character/slice";
+import paginationReducer from "./pagination/slice"
 
 const store = configureStore({
   reducer: {
     character: characterReducer,
+    pagination: paginationReducer,
   },
 });
 

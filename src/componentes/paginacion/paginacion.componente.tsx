@@ -1,6 +1,6 @@
 import './paginacion.css';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { GET_PERSONAJES } from '../../store/character/thunk';
+import { GET_PAGINACION } from '../../store/pagination/thunk';
 
 /**
  * Componente que contiene los botones para paginar
@@ -12,13 +12,20 @@ import { GET_PERSONAJES } from '../../store/character/thunk';
  */
 const Paginacion = () => {
     const dispatch = useAppDispatch()
+    const {next,prev} = useAppSelector ((state)=> state.pagination)
     const handleNext = () => {
-        
+        dispatch(GET_PAGINACION(next))
+        console.log(next)
     }
+    const handlePrev = () => {
+        dispatch(GET_PAGINACION(prev))
+        console.log(prev)
+    }
+    
     
 
     return <div className="paginacion">
-        <button disabled={true} className={"primary"}>Anterior</button>
+        <button onClick={handlePrev} className={"primary"}>Anterior</button>
         <button onClick={handleNext} disabled={false} className={"primary"}>Siguiente</button>
     </div>
 }

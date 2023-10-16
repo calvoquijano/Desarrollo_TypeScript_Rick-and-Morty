@@ -2,8 +2,8 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GET_PERSONAJES} from "./thunk";
 
 export type Personaje = {
-  id: number;
-  name: string;
+  id?: number;
+  name?: string;
   image?: string;
   fav?: boolean;
 };
