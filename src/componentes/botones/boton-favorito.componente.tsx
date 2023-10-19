@@ -1,8 +1,13 @@
 import "./boton-favorito.css";
-export type FavoritosBtn = {
+import { useAppDispatch, useAppSelector } from "../../store";
+import { ADD_FAVORITE, Personaje } from "../../store/character/slice";
+
+export type BotonFavoritoProps = {
+  personaje: Personaje;
   esFavorito: boolean;
-  onClick?: () => void;
+  id: number;
 };
+
 /**
  * Boton que indica si un elemento es favorito o no, y da la posibilidad de marcarlo/desmarcarlo
  *
@@ -11,12 +16,17 @@ export type FavoritosBtn = {
  *
  * @returns un JSX element
  */
-const BotonFavorito = ({ esFavorito, onClick }: FavoritosBtn) => {
-  const src = esFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png";
 
+const BotonFavorito = ({ esFavorito, personaje }: BotonFavoritoProps) => {
+  const dispatch = useAppDispatch();
+  const btnAction = () => {
+    dispatch(ADD_FAVORITE(personaje));
+    console.log(esFavorito);
+  };
+  const src = esFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png";
   return (
     <div className="boton-favorito">
-      <img src={src} alt={"favorito"} />
+      <img src={src} alt={"favorito"} onClick={btnAction} />
     </div>
   );
 };

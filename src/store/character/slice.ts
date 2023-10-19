@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { GET_PERSONAJES} from "./thunk";
+import { GET_PERSONAJES } from "./thunk";
 
 export type Personaje = {
-  id?: number;
+  id: number;
   name?: string;
   image?: string;
-  fav?: boolean;
+  esFavorito: boolean;
 };
 
 export type CharacterState = {
@@ -15,21 +15,36 @@ export type CharacterState = {
   error?: string | null;
   next: string;
   prev: string;
+  favorites: Personaje[];
 };
 
 const initialState: CharacterState = {
-  url: 'https://rickandmortyapi.com/api/character/',
+  url: "https://rickandmortyapi.com/api/character/",
   personajes: [],
   isLoading: true,
   error: null,
-  next: '',
-  prev: '',
+  next: "",
+  prev: "",
+  favorites: [],
 };
 
 export const characterSlice = createSlice({
   name: "personaje",
-  initialState,
-  reducers: {},
+  initialState: initialState,
+  reducers: {
+    ADD_FAVORITE: (state, action: PayloadAction<Personaje>) => {
+      const character = action.payload;
+      const esFavorito = state.favorites.find((favorite) => favorite.id === character.id); 
+      if (esFavorito){
+        esFavorito.esFavorito = false;
+        state.favorites = state.favorites.filter((fav) => fav.id !== esFavorito.id)
+      } else {
+        character.esFavorito = true;
+        state.favorites.push(character)
+      }
+      
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(GET_PERSONAJES.pending, (state) => {
       state.isLoading = true;
@@ -41,14 +56,15 @@ export const characterSlice = createSlice({
         state.next = action.payload.next;
         state.prev = action.payload.prev;
         state.isLoading = false;
-      },
+      }
     );
     builder.addCase(GET_PERSONAJES.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message ?? 'Error';
+      state.error = action.error.message ?? "Error";
     });
   },
 });
 
 const characterReducer = characterSlice.reducer;
+export const { ADD_FAVORITE } = characterSlice.actions;
 export default characterReducer;

@@ -8,6 +8,7 @@ export const GET_PERSONAJES = createAsyncThunk(
       const data = await res.json();
       const paginar = {
         url: url,
+        favorites: [],
         personajes: data.results,
         next: data.info.next,
         prev: data.info.prev,

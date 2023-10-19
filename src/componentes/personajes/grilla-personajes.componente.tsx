@@ -14,7 +14,12 @@ import { GET_PERSONAJES } from "../../store/character/thunk";
 //  * @returns un JSX element
 //  */
 function GrillaPersonajes() {
-  const { url, personajes, isLoading, error } = useAppSelector((state) => state.character);
+  const { url, personajes, isLoading, error, favorites } = useAppSelector((state) => state.character);
+  const favID = favorites.map((fav) => fav.id);
+  const personajesFavoritos = personajes.map((personaje) => ({
+    ...personaje,
+    esFavorito: favID.includes(personaje.id),
+  }));
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(GET_PERSONAJES(url));
@@ -24,7 +29,7 @@ function GrillaPersonajes() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        personajes?.map((personaje) => (
+        personajesFavoritos?.map((personaje) => (
           <TarjetaPersonaje personaje={personaje} key={personaje.id} />
         ))
       )}

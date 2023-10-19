@@ -2,9 +2,11 @@ import BotonFavorito from '../botones/boton-favorito.componente';
 import "./tarjeta-personaje.css";
 import { Personaje } from "../../store/character/slice";
 
+
 export type TarjetaPersonajeProps = {
   personaje: Personaje;
 };
+
 
 /**
  * Tarjeta para cada personaje dentro de la grilla de personajes.
@@ -16,6 +18,7 @@ export type TarjetaPersonajeProps = {
  */
 
 const TarjetaPersonaje = ({ personaje }: TarjetaPersonajeProps) => {
+  
   return (
     <div className="tarjeta-personaje">
       <img
@@ -24,7 +27,7 @@ const TarjetaPersonaje = ({ personaje }: TarjetaPersonajeProps) => {
       />
       <div className="tarjeta-personaje-body">
         <span>{personaje.name}</span>
-        <BotonFavorito esFavorito={false} />
+        <BotonFavorito esFavorito={personaje.esFavorito} personaje={personaje} id={personaje.id}/>
       </div>
     </div>
   );
