@@ -17,16 +17,15 @@ export type BotonFavoritoProps = {
  * @returns un JSX element
  */
 
-const BotonFavorito = ({ esFavorito, personaje }: BotonFavoritoProps) => {
+const BotonFavorito = ({ esFavorito, personaje, id }: BotonFavoritoProps) => {
   const dispatch = useAppDispatch();
   const btnAction = () => {
     dispatch(ADD_FAVORITE(personaje));
-    console.log(esFavorito);
   };
   const src = esFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png";
   return (
     <div className="boton-favorito">
-      <img src={src} alt={"favorito"} onClick={btnAction} />
+      <img src={src} alt={"favorito"} onClick={btnAction}  />
     </div>
   );
 };

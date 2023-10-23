@@ -34,15 +34,21 @@ export const characterSlice = createSlice({
   reducers: {
     ADD_FAVORITE: (state, action: PayloadAction<Personaje>) => {
       const character = action.payload;
-      const esFavorito = state.favorites.find((favorite) => favorite.id === character.id); 
-      if (esFavorito){
+      const esFavorito = state.favorites.find(
+        (favorite) => favorite.id === character.id
+      );
+      if (esFavorito) {
         esFavorito.esFavorito = false;
-        state.favorites = state.favorites.filter((fav) => fav.id !== esFavorito.id)
+        state.favorites = state.favorites.filter(
+          (item) => item.id !== esFavorito.id
+        );
       } else {
+        state.favorites.push(character);
         character.esFavorito = true;
-        state.favorites.push(character)
       }
-      
+    },
+    RESET_FAVS: (state) => {
+      state.favorites = [];
     }
   },
   extraReducers: (builder) => {
@@ -62,9 +68,10 @@ export const characterSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message ?? "Error";
     });
+    
   },
 });
 
 const characterReducer = characterSlice.reducer;
-export const { ADD_FAVORITE } = characterSlice.actions;
+export const { ADD_FAVORITE , RESET_FAVS } = characterSlice.actions;
 export default characterReducer;
