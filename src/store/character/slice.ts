@@ -1,9 +1,13 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { GET_PERSONAJES } from "./thunk";
+import { GET_PERSONAJES, GET_PERSONAJES_FILTER } from "./thunk";
 
 export type Personaje = {
   id: number;
-  name?: string;
+  name: string;
+  location?: {
+    name?: string;
+  };
+  gender?: string;
   image?: string;
   esFavorito: boolean;
 };
@@ -49,7 +53,7 @@ export const characterSlice = createSlice({
     },
     RESET_FAVS: (state) => {
       state.favorites = [];
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(GET_PERSONAJES.pending, (state) => {
@@ -68,10 +72,25 @@ export const characterSlice = createSlice({
       state.isLoading = false;
       state.error = action.error.message ?? "Error";
     });
-    
+    builder.addCase(GET_PERSONAJES_FILTER.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      GET_PERSONAJES_FILTER.fulfilled,
+      (state, action: PayloadAction<CharacterState>) => {
+        state.personajes = action.payload.personajes;
+        state.next = action.payload.next;
+        state.prev = action.payload.prev;
+        state.isLoading = false;
+      }
+    );
+    builder.addCase(GET_PERSONAJES_FILTER.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message ?? "Error";
+    });
   },
 });
 
 const characterReducer = characterSlice.reducer;
-export const { ADD_FAVORITE , RESET_FAVS } = characterSlice.actions;
+export const { ADD_FAVORITE, RESET_FAVS } = characterSlice.actions;
 export default characterReducer;

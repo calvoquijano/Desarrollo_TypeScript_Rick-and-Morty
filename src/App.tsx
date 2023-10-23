@@ -15,12 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PaginaInicio />} />
         <Route path="favoritos" element={<PaginaFavoritos />} />
-        <Route
-          path="detalle"
-          element={personajes.map((personaje) => (
-            <PaginaDetalle personaje={personaje} key={personaje.id} />
-          ))}
-        />
+        <Route path="detalle" element={<PaginaDetalle />} />
       </Routes>
     </div>
   );
