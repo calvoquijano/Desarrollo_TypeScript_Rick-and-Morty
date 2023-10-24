@@ -7,11 +7,12 @@ import { useAppDispatch , useAppSelector } from "../store";
 
 /**
  * Esta es la pagina principal. Aquí se debera ver el panel de filtros junto con la grilla de personajes.
- *
- * Uso:
- * ``` <PaginaInicio /> ```
- *
- * @returns la pagina de inicio
+ * @author "Andrés Quijano"
+ * @return {array} personajes - lista de personajes
+ * useEffect(() => {
+    dispatch(GET_PERSONAJES(url));
+  }, []);
+ * @return {string} url - url de la página
  */
 
 

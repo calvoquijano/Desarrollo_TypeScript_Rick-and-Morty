@@ -4,11 +4,15 @@ import { GET_PERSONAJES } from "../../store/character/thunk";
 
 /**
  * Componente que contiene los botones para paginar
- *
- * Deberás agregar las propiedades necesarias para que funcione correctamente
- *
- *
- * @returns un JSX element
+ * @autor "Andrés Quijano"
+ * @return {string} next - url de la página siguiente
+ * const handleNext = () => {
+    dispatch(GET_PERSONAJES(next));
+  };
+ * @return {string} prev - url de la página anterior
+  const handlePrev = () => {
+    dispatch(GET_PERSONAJES(prev));
+  };
  */
 const Paginacion = () => {
   const dispatch = useAppDispatch();

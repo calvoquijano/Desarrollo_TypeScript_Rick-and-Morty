@@ -6,11 +6,11 @@ import { RESET_FAVS } from "../store/character/slice";
 import Paginacion from "../componentes/paginacion/paginacion.componente";
 /**
  * Esta es la pagina de favoritos. Aquí se deberan ver todos los personajes marcados como favoritos
- *
- * Uso:
- * ``` <PaginaFavoritos /> ```
- *
- * @returns la pagina de favoritos
+ * @author "Andrés Quijano"
+ * @return {array}
+ * const resetFavs = () => {
+    dispatch(RESET_FAVS());
+  }
  */
 const PaginaFavoritos = () => {
   const dispatch = useAppDispatch();

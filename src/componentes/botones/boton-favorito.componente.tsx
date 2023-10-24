@@ -10,11 +10,9 @@ export type BotonFavoritoProps = {
 
 /**
  * Boton que indica si un elemento es favorito o no, y da la posibilidad de marcarlo/desmarcarlo
- *
- * Deberás tipar las propiedades si usas este componente
- *
- *
- * @returns un JSX element
+ * @author "Andrés Quijano"
+ * @param {Personaje} personaje - personaje que se quiere marcar como favorito
+ * @return {esFavorito} booleano que indica si el personaje es favorito o no
  */
 
 const BotonFavorito = ({ esFavorito, personaje, id }: BotonFavoritoProps) => {
